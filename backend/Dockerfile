@@ -1,9 +1,9 @@
 FROM node:20
 EXPOSE 8080
-ENV DB_HOST="localhost"
-RUN mkdir /opt/server
-WORKDIR /opt/server
-COPY package.json .
+ENV DB_HOST="mysql"
+RUN mkdir -p /opt/backend
+WORKDIR /opt/backend
+COPY package*.json .
 COPY *.js .
 RUN npm install
-CMD ["node", "index.js"]
+CMD [ "node", "index.js"]
