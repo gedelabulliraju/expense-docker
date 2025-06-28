@@ -1,0 +1,38 @@
+version: "3.8"
+networks:
+  expense:
+    
+volumes:
+  mysql:
+services:
+  mysql:
+    image: srlaf/mysql:v1
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - expense
+    volumes:
+      - mysql:/var/lib/mysql
+
+  backend:
+    image: srlaf/backend:v1
+    container_name: backend
+    ports:
+      - "8080:8080"
+    networks:
+      - expense
+    command: ["sh", sleep 10 && node /opt/server"]
+    depends_on:
+      - mysql
+
+  frontend:
+    image: srlaf/frontend:v1
+    container_name: frontend
+    ports:
+      - "80:80"
+    networks:
+      - expense
+    depends_on:
+      - backend
+    
