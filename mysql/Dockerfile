@@ -1,23 +1,25 @@
-# FROM mysql:8.0
-# ENV MYSQL_ROOT_PASSWORD=ExpenseApp@1
-# RUN groupadd expense && \
-#     useradd -g expense expense && \
-#     chown -R expense:expense /var/lib/mysql /var/run/mysqld /docker-entrypoint-initdb.d
-# ADD scripts/*.sql /docker-entrypoint-initdb.d
-# USER expense
-
 FROM mysql:8.0
-
-# రూట్ పాస్‌వర్డ్ సెటప్
 ENV MYSQL_ROOT_PASSWORD=ExpenseApp@1
+RUN groupadd expense && \
+    useradd -g expense expense && \
+    chown -R expense:expense /var/lib/mysql /var/run/mysqld /docker-entrypoint-initdb.d
+ADD scripts/*.sql /docker-entrypoint-initdb.d
+USER expense
+    # MYSQL_DATABASE=transactions \
+    # MYSQL_USER=expense \
+    # MYSQL_PASSWORD=ExpenseApp@1
+    # FROM mysql:8.0
 
-# SQL స్క్రిప్ట్‌లు కాపీ చేయడం
-ADD scripts/*.sql /docker-entrypoint-initdb.d/
+# # రూట్ పాస్‌వర్డ్ సెటప్
+# ENV MYSQL_ROOT_PASSWORD=ExpenseApp@1
 
-# USER expense సృష్టించడం అవసరం లేదు, ఎందుకంటే mysql ఇమేజ్ లో internally mysqld root గా run అవుతుంది
-# కాబట్టి, USER expense వాడకండి
+# # SQL స్క్రిప్ట్‌లు కాపీ చేయడం
+# ADD scripts/*.sql /docker-entrypoint-initdb.d/
 
-# Volume permission కోసం (optional fix if persistent volume used)
-RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
+# # USER expense సృష్టించడం అవసరం లేదు, ఎందుకంటే mysql ఇమేజ్ లో internally mysqld root గా run అవుతుంది
+# # కాబట్టి, USER expense వాడకండి
 
-# ENTRYPOINT మరియు CMD defaultగా ఉన్న mysql ఇమేజ్ వాడుతుంది
+# # Volume permission కోసం (optional fix if persistent volume used)
+# RUN mkdir -p /var/lib/mysql && chown -R mysql:mysql /var/lib/mysql
+
+# # ENTRYPOINT మరియు CMD defaultగా ఉన్న mysql ఇమేజ్ వాడుతుంది

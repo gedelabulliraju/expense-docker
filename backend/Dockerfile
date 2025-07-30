@@ -14,7 +14,7 @@ RUN addgroup -S expense && adduser -S expense -G expense && \
 WORKDIR /opt/server
 COPY --from=builder /opt/server /opt/server
 USER expense
-CMD ["node", "index.js"]
+CMD [ "node", "index.js" ]
 # Before best practices implemented
 # FROM node:20
 # EXPOSE 8080
