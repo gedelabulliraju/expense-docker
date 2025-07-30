@@ -14,29 +14,13 @@ RUN addgroup -S expense && adduser -S expense -G expense && \
 WORKDIR /opt/server
 COPY --from=builder /opt/server /opt/server
 USER expense
-CMD [ "node", "index.js" ]
+CMD ["node", "index.js"]
 # Before best practices implemented
 # FROM node:20
 # EXPOSE 8080
 # ENV DB_HOST="mysql"
 # RUN mkdir /opt/server
 # WORKDIR /opt/server
-# COPY package.json .
-# COPY *.js .
-# RUN npm install
-# CMD ["node", "index.js"]
-
-
-
-
-# FROM node:lts-alpine3.21
-# EXPOSE 8080
-# ENV DB_HOST="mysql"
-# RUN mkdir /opt/server
-# WORKDIR /opt/server
-# RUN adduser -S expense && addgroup -S expense
-# RUN chown -R expense:expense /opt/server
-# USER expense
 # COPY package.json .
 # COPY *.js .
 # RUN npm install
