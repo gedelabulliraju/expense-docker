@@ -16,4 +16,6 @@ RUN rm -rf /etc/nginx/nginx.conf && \
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY code /usr/share/nginx/html
 USER nginx
+CMD [ "executable" ] # Start Nginx server
+#CMD ["nginx", "-g", "daemon off;"]
 #COPY expense.conf /etc/nginx/conf.d/expense.conf
